@@ -1,16 +1,34 @@
 <?php
-
-$ch = curl_init('https://realemail.expeditedaddons.com/?api_key=642XODM18ESF396LJG5NC3B2I9RAK00YT418UZ7P7QHW5V&email=email@example.org&fix_typos=false');
-
-$response = curl_exec($ch);
-curl_close($ch);
-
-var_dump($response);
+require 'vendor/autoload.php'; // If you're using Composer (recommended)
+// Comment out the above line if not using Composer
+// require("<PATH TO>/sendgrid-php.php");
+// If not using Composer, uncomment the above line and
+// download sendgrid-php.zip from the latest release here,
+// replacing <PATH TO> with the path to the sendgrid-php.php file,
+// which is included in the download:
+// https://github.com/sendgrid/sendgrid-php/releases
+$email = new \SendGrid\Mail\Mail();
+$email->setFrom("test@example.com", "Example User");
+$email->setSubject("Sending with SendGrid is Fun");
+$email->addTo("test@example.com", "Example User");
+$email->addContent("text/plain", "and easy to do anywhere, even with PHP");
+$email->addContent(
+    "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+);
+$sendgrid = new \SendGrid(getenv('SENDGRID_API_KEY'));
+try {
+    $response = $sendgrid->send($email);
+    print $response->statusCode() . "\n";
+    print_r($response->headers());
+    print $response->body() . "\n";
+} catch (Exception $e) {
+    echo 'Caught exception: '. $e->getMessage() ."\n";
+}
 /*
 This first bit sets the email address that you want the form to be submitted to.
 You will need to change this value to a valid email address that you can access.
 */
-$webmaster_email = $ch;
+$webmaster_email = 'volvydeutsch1@gmail.com';
 
 /*
 This bit sets the URLs of the supporting pages.
