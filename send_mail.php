@@ -1,10 +1,16 @@
 <?php
 
+$ch = curl_init('https://realemail.expeditedaddons.com/?api_key=642XODM18ESF396LJG5NC3B2I9RAK00YT418UZ7P7QHW5V&email=email@example.org&fix_typos=false');
+
+$response = curl_exec($ch);
+curl_close($ch);
+
+var_dump($response);
 /*
 This first bit sets the email address that you want the form to be submitted to.
 You will need to change this value to a valid email address that you can access.
 */
-$webmaster_email = 'https://realemail.expeditedaddons.com/?api_key=642XODM18ESF396LJG5NC3B2I9RAK00YT418UZ7P7QHW5V&email=volvydeutsch1@gmail.com&fix_typos=false';
+$webmaster_email = $ch;
 
 /*
 This bit sets the URLs of the supporting pages.
